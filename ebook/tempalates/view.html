@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<header class="text-gray-600 body-font bg-teal-700 text-white">
+    <div class="container p-2">
+
+        <nav class="md:ml-auto md:mr-auto flex flex-wrap text-base justify-start">
+            {%for data in category %}
+            <a href="{% url 'category' data.id %}" class="mr-5 hover:text-slate-200">{{ data.cat_title|capfirst}} </a>
+            {% endfor %}
+        </nav>
+
+    </div>
+</header>
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="-my-8 divide-y-2 divide-gray-100">
+            <div class="py-8 flex flex-wrap md:flex-nowrap">
+                <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                    <img src="{{ show.image.url }}" style="border-radius: 50%;"/>
+                    <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">BY-{{show.author}}</h3>
+                    <h6 class="leading-relaxed text-base" style="margin-left: 80px;">{{show.price}} <del class="text-red-500">{{show.discount_price}}</del></h6>
+                </div>
+                <div class="md:flex-grow">
+                    <h2 class="text-2xl font-medium text-gray-900 title-font mb-2" style="margin-left: 80px;">{{ show.title }}</h2>
+                    <p class="leading-relaxed" style="margin-left: 80px;">{{ show.description }}</p>
+                    <div class="d-flex">
+                        <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;"> ISBN: {{show.isbn}}</h3>
+                        <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">{{show.status}}</h3>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="text-gray-600 body-font overflow-hidden">
+    <h1 class="text-3xl font-black font-sans ml-10">Related Post</h1>
+    <div class="container px-5 py-24 mx-auto">
+        <div class="d-flex">
+            <div class="-my-8 divide-y-2 divide-gray-100">
+                {% for data in create %}
+                <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <img src="{{ data.image.url }}" style="border-radius: 50%;"/>
+                        <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">BY-{{data.author}}</h3>
+                        <h6 class="leading-relaxed text-base" style="margin-left: 80px;">{{data.price}} <del class="text-red-500">{{data.discount_price}}</del></h6>
+                    </div>
+                    <div class="md:flex-grow">
+                        <h2 class="text-2xl font-medium text-gray-900 title-font mb-2" style="margin-left: 80px;">{{ data.title }}</h2>
+                        <p class="leading-relaxed" style="margin-left: 80px;">{{ data.description }}</p>
+                        <div class="d-flex">
+                            <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">ISBN: {{data.isbn}}</h3>
+                            <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">{{data.status}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+                {% endfor %}
+    
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
