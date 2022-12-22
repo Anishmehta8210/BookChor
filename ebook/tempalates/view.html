@@ -31,7 +31,17 @@
                         <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">{{show.status}}</h3>
                     </div>
 
+                    <div class="flex gap-4" style="margin-left:70px;margin-top:20px">
+                        <div class="flex w-64">
+                            <a href="{% url 'addToCart' show.id %}" class="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">Add to Cart</a>
+                            <button class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Buy Now</button>
+                        </div>
+                    </div>
+
+                   
+
                 </div>
+               
             </div>
 
         </div>
@@ -58,6 +68,10 @@
                             <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">ISBN: {{data.isbn}}</h3>
                             <h3 class="tracking-widest text-black-500  font-medium title-font" style="margin-left: 80px;margin-top: 20px;">{{data.status}}</h3>
                         </div>
+                        <div class="flex gap-3 text-center mt-2"style="margin-left:70px;margin-top:20px">
+                            <a href="{% url 'category' data.id %}" class="bg-green-600 text-white  py-2 rounded px-3">Buy Now</a>
+                            <a href="{% url 'category' data.id %}" class="bg-orange-600 text-white  py-2 rounded px-3">Add to Cart</a>
+                            </div>
     
                     </div>
                 </div>

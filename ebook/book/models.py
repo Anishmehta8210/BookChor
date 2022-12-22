@@ -84,6 +84,7 @@ class Order (models.Model):
     address = models.ForeignKey(Address,on_delete=models.SET_NULL,null=True,blank=True)
     ordered = models.BooleanField(default=False)
     payment = models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True,blank=True)
+    coupon = models.ForeignKey(Coupon,on_delete=models.SET_NULL,null=True,blank=True)
     being_delivered = models.BooleanField(default=False)
     recieved = models.BooleanField(default=False)
 

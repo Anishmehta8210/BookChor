@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from book.views import homepage,insert,viewPost,singlePost,search
+from book.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,7 +25,10 @@ urlpatterns = [
     path ("insert/", insert,name="insertpage"),
     path ("category/<int:cat_id>/", viewPost,name="category"),
     path ("show/<int:post_id>/", singlePost,name="singlePost"),
-    path ("search/", search,name="search")
+    path ("search/", search,name="search"),
+    path("cart/",cart,name="cart"),
+     path("add-to-cart/<int:item>",addToCart,name="addToCart"),
+    
     
 ]
 
