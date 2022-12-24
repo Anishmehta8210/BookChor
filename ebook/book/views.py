@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist;
 
 # Create your views here.
 
@@ -51,7 +52,19 @@ def singlePost(r,post_id):
     return render(r,"view.html",data)
 
 def cart(r):
-    return render (r,"cart.html")
+    try:
+        order = Order.objects.get(user=r.user,ordered=False)
+        context = {"order":order}
+    except ObjectDoesNotExist:
+        return redirect(homepage)
+    return render (r,"cart.html",context)
+    
+
+    
+        
+    
+
+
 
 def addToCart(r,item):
     book = get_object_or_404(Books, id=item)
@@ -60,6 +73,7 @@ def addToCart(r,item):
 
     if order_qs.exists():
         order = order_qs[0]
+
         if order.items.filter(item=book).exists():
             orderitem.qty += 1
             orderitem.save()
@@ -71,5 +85,45 @@ def addToCart(r,item):
 
         order.items.add(orderitem)
     return redirect(cart)
+
+
+def removeFromCart(r,item):
+    book = get_object_or_404(Books, id=item)
+    orderitem = OrderItem.objects.get(item=book,ordered=False,user=r.user)
+    order_qs = Order.objects.filter(user=r.user,ordered=False)
+
+
+    if order_qs.exists():
+        order = order_qs[0]
+
+        if order.items.filter(item=book).exists():
+            if orderitem.qty > 1:
+                orderitem.qty -= 1
+                orderitem.save()
+            else:
+                order.items.remove(orderitem)
+
+    return redirect(cart)
+
+def removeSingleItem(r,item):
+    book = get_object_or_404(Books, id=item)
+    orderitem = OrderItem.objects.get(item=book,ordered=False,user=r.user)
+    order_qs = Order.objects.filter(user=r.user,ordered=False)
+
+
+    if order_qs.exists():
+        order = order_qs[0]
+
+        if order.items.filter(item=book).exists():
+            order.items.remove(orderitem)
+            orderitem.delete()
+
+    return redirect(cart)
+
+            
+
+
+        
+
 
     
