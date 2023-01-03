@@ -152,13 +152,13 @@ def addCoupon(r):
             if checkCoupon(r, code):
                 order.coupon = getCoupon(r, code)
                 order.save()
-                # coupon applied successfully
+                
                 return redirect(cart)
             else:
-                # not a valid code
+            
                 return redirect(cart)
         except ObjectDoesNotExist:
-            # msg: your code in invalid
+            
             return redirect(cart)
 
 
@@ -166,7 +166,7 @@ def RemoveCoupon(r):
      order = Order.objects.get(user=r.user,ordered=False)
      order.coupon = None 
      order.save()
-    #  msg: remove coupon successfully
+    
      return redirect(cart)
 
             
